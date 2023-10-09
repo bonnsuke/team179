@@ -9,22 +9,41 @@
 <body>
     <h1>商品管理システム</h1>
     <h2>商品一覧</h2>
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>名前</th>
-      <th>種別</th>
-      <th>詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>id </td>
-      <td>name</td>
-      <td>type_id </td>
-      <td>detail </td>
-    </tr>
-  </tbody>
-</table>
+    <div>
+      <form action="/search" method="get">
+
+      @csrf
+
+        <input type="text" name="keyword">
+        <input type="submit" value="検索">
+     </form>
+    </div>
+    <div>
+      @can('admin')
+      <form action="" method="post">
+        @csrf
+        <button type="submit">商品登録</button>
+      </form>
+      @endcan
+    </div>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>名前</th>
+          <th>種別</th>
+          <th>詳細</th>
+        </tr>
+       </thead>
+    <tbody>
+    @foreach ($items as $item)
+      <tr>
+        <td>{{ $item->id }} </td>
+        <td>{{ $item->name }}</td>
+        <td>{{ $item->type_id }} </td>
+        <td>{{ $item->detail }}</td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
 </body>
 </html>

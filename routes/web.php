@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/items',[App\Http\Controllers\ItemController::class, 'index'])->name('items');
+Route::get('/search',[App\Http\Controllers\ItemController::class, 'index'])->name('items');

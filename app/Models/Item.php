@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    use HasFactory;
+    
+    public function getTypeNameById()
+    {
+        return DB::table('items')
+        ->join('types','items.type_id','=','types.id')
+        ->get();
+    }
 }
