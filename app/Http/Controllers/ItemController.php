@@ -12,7 +12,19 @@ class ItemController extends Controller
 
      public function index(Request $request)
      {
-        $items = Item::query();
+      $keyword = $request->input('keyword');
+      if(!empty($keyword)) {
+          $items=Item::where('name', 'LIKE', "%{$keyword}%")
+          // ->orwhereHas('items', function ($query) use ($keyword) {
+          //     $query->where('name', 'LIKE', "%{$keyword}%");
+          // })
+          ->orwhere('detail', 'LIKE', "%{$keyword}%")
+          ->get();
+        }else{
+          $items = Item::all();
+        }
+        
+
         return view('items.index',compact('items'));
      }
 
@@ -20,11 +32,18 @@ class ItemController extends Controller
      {
       $keyword = $request->input('keyword');
       if(!empty($keyword)) {
-          $items->where('name', 'LIKE', "%{$keyword}%")
+          $items=Item::where('name', 'LIKE', "%{$keyword}%")
           ->orwhereHas('items', function ($query) use ($keyword) {
               $query->where('name', 'LIKE', "%{$keyword}%");
           })->get();
         }
-        return redirect("items"); 
+        return view('items.index',compact('items'));
       }
+
+      public function showAdmin(Request $request,$id)
+      {
+          $item = User::find($id);
+          return view('item.index',compact('item'));
+      }
+
 }

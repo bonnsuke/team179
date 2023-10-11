@@ -11,21 +11,17 @@
     <h2>商品一覧</h2>
     <div>
       <form action="/search" method="get">
-
-      @csrf
-
         <input type="text" name="keyword">
         <input type="submit" value="検索">
      </form>
     </div>
     <div>
+      <a href="">商品登録</a>
       @can('admin')
-      <form action="" method="post">
-        @csrf
-        <button type="submit">商品登録</button>
-      </form>
+      <a href="">商品登録</a>
       @endcan
     </div>
+    <table>
       <thead>
         <tr>
           <th>ID</th>

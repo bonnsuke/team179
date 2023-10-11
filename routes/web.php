@@ -19,3 +19,6 @@ Route::get('/', function () {
 
 Route::get('/items',[App\Http\Controllers\ItemController::class, 'index'])->name('items');
 Route::get('/search',[App\Http\Controllers\ItemController::class, 'index'])->name('items');
+Route::group(['middleware' => ['auth','can:admin']],function() {
+    Route::get('/admin', 'User\ItemController@showAdmin,');
+});
