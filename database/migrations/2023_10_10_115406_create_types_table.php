@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('types', function (Blueprint $table) {
             $table->id()->comment('ID');
             $table->string('type_name',100)->comment('種別名');
-            $table->timestamps()->nullable()->default(null);
-            $table->primary('id');
+            $table->timestamps();
+            
         });
     }
 

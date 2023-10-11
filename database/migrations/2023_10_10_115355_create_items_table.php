@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id()->comment('ID');
-            $table->unsignedBigInteger('user_id')->comment('ユーザーID');
+            $table->unsignedBigInteger('user_id')->index()->comment('ユーザーID');
             $table->string('name',100)->comment('名前');
             $table->smallInteger('type_id')->nullable()->default(null)->comment('種別');
             $table->text('detail',500)->nullable()->default(null)->comment('詳細');
-            $table->timestamps()->nullable()->default(null);
-            $table->primary('id');
+            $table->timestamps();
+            
         });
     }
 
