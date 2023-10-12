@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/items', [\App\Http\Controllers\ItemController::class, 'items'])->name('items');
+
+// アイテム登録
+Route::get('/create', [\App\Http\Controllers\ItemController::class, 'create'])->name('create');
+Route::post('/store', [\App\Http\Controllers\ItemController::class, 'store']);
+
+//アイテム 編集
+Route::get('/edit/{item}', [App\Http\Controllers\ItemController::class, 'edit']);
+Route::post('/update/{item}', [App\Http\Controllers\ItemController::class, 'update']);
