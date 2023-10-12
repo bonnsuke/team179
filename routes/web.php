@@ -22,3 +22,6 @@ Route::get('/search',[App\Http\Controllers\ItemController::class, 'index'])->nam
 Route::group(['middleware' => ['auth','can:admin']],function() {
     Route::get('/admin', 'User\ItemController@showAdmin,');
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
