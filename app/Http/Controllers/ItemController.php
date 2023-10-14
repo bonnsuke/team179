@@ -30,21 +30,16 @@ class ItemController extends Controller
         return view('items.index',compact('items'));
      }
 
-     public function search(Request $request)
+     public function admin(Request $request)
      {
-      $keyword = $request->input('keyword');
-      if(!empty($keyword)) {
-          $items=Item::where('name', 'LIKE', "%{$keyword}%")
-          ->orwhereHas('items', function ($query) use ($keyword) {
-              $query->where('name', 'LIKE', "%{$keyword}%");
-          })->get();
-        }
-        return view('items.index',compact('items'));
+     
+          $admins=User::whereIn('role_id'[1])->get();
+          return view('items.index',compact('items'));
       }
 
       public function showAdmin(Request $request,$id)
       {
-          $item = User::find($id);
+          $item = User::find(1);
           return view('item.index',compact('item'));
       }
 
