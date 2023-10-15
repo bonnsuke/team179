@@ -52,16 +52,19 @@ class ItemController extends Controller
     /**
      * アイテム編集
      */
-    public function edit(Item $item)
+    public function edit($id)
     {
+        $item = Item::find($id);
         return view('edit', compact('item'));
     }
 
-    public function update(Request $request, Item $item)
+    public function update(Request $request, $id)
     {
         $this->validate($request,[
             'name' => 'required|max:225',
         ]);
+
+        $item = Item::find($id);
 
         // アイテム状態の更新
         $item->update([

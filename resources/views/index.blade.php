@@ -95,7 +95,7 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->type_id }}</td>
                     <td>{{ $item->detail }}</td>
-                    <td><a href="/edit" class="edit-button">編集</a></td>
+                    <td><a href="/edit/{{ $item->id }}" class="edit-button">編集</a></td>
                 </tr>
                 @endforeach
             </tbody>

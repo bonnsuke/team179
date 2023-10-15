@@ -25,5 +25,6 @@ Route::get('/create', [\App\Http\Controllers\ItemController::class, 'create'])->
 Route::post('/store', [\App\Http\Controllers\ItemController::class, 'store']);
 
 //アイテム 編集
-Route::get('/edit/{item}', [App\Http\Controllers\ItemController::class, 'edit']);
-Route::post('/update/{item}', [App\Http\Controllers\ItemController::class, 'update']);
+Route::get('/edit/{id}', [App\Http\Controllers\ItemController::class, 'edit'])->name('items.edit');
+Route::post('/update/{id}', [App\Http\Controllers\ItemController::class, 'update'])->name('items.update');
+

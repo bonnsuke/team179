@@ -68,13 +68,13 @@
         <!-- 他のメニューアイテムを追加できます -->
     </div>
 
-    @include('common.errors')
 
     <!-- メインコンテンツ -->
     <div class="content">
         <a href="/items" class="button">戻る</a>
         <div class="form-container">
-            <form action="{{ route('items.update', ['item' => $item->id]) }}" method="post">
+            <form action="{{ route('items.update', ['id' => $item->id]) }}" method="post">
+
                 @csrf
                 <h2>商品編集</h2>
                 <label for="name">名前</label>
