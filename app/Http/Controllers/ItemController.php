@@ -30,17 +30,18 @@ class ItemController extends Controller
         return view('items.index',compact('items'));
      }
 
-     public function admin(Request $request)
-     {
-     
-          $admins=User::whereIn('role_id'[1])->get();
-          return view('items.index',compact('items'));
+
+      public function showAdmin(Request $request, $id)
+      {
+          $item = User::find($id);
+          return view('item.index',compact('item'));
       }
 
-      public function showAdmin(Request $request,$id)
+      public function destroy($id)
       {
-          $item = User::find(1);
-          return view('item.index',compact('item'));
+          $item = Item::find($id);
+          $item->delete();
+          return redirect("items");
       }
 
 }
