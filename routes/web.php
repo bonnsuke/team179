@@ -16,18 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-//一般ユーザー
-Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
-    //ここにルートを記述
-});
-
-// 管理者以上
-Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
-    //ここにルートを記述
-});
