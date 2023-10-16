@@ -26,9 +26,8 @@
      </form>
     </div>
     <div class="text-end">
+      @can('admin-role')
       <a href="/create">商品登録</a>
-      @can('admin')
-      <a href="">商品登録</a>
       @endcan
     </div>
     <table class="table table-striped table-responsive">
@@ -38,8 +37,7 @@
           <th style = "width: 25%">名前</th>
           <th style = "width: 25%">種別</th>
           <th style = "width: 30%">詳細</th>
-          <th style = "width: 10%">削除</th>
-          @can('admin')
+          @can('admin-role')
           <th style = "width: 10%">削除</th>
           @endcan
         </tr>
@@ -51,13 +49,7 @@
         <td>{{ $item->name }}</td>
         <td>{{ $item->type_name }} </td>
         <td>{{ $item->detail }}</td>
-        <td>
-          <form action="/destroy/{{$item->id}}" method="post">
-            @csrf
-            <button class=" btn btn-danger" type="submit">削除</button>
-          </form>
-        </td>
-        @can('admin')
+        @can('admin-role')
         <td>
           <form action="/destroy/{{$item->id}}" method="post">
             @csrf
