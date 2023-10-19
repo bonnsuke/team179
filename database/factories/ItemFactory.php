@@ -18,7 +18,7 @@ class ItemFactory extends Factory
     {
         return [
         
-            'user_id' => fake()->numberBetween(1,100),
+            'user_id' => fake()->unique()->numberBetween(1,100),
             'name' => fake()->name(10),
             'type_id' => fake()->numberBetween(1,3),
             'detail' => fake()->realText(50),
