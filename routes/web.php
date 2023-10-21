@@ -17,18 +17,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['auth','can:admin']],function() {
+    Route::get('/admin', [App\Http\Controllers\ItemController::class, 'showAdmin']);
+    Route::post('/destroy{id}',[App\Http\Controllers\ItemController::class, 'destroy']);
+
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-//一般ユーザー
-Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
-    //ここにルートを記述
+Route::group(['middleware' => 'auth', 'can:admin-role'], function () {
+    Route::get('/items',[App\Http\Controllers\ItemController::class, 'index'])->name('items');
+    Route::get('/search',[App\Http\Controllers\ItemController::class, 'index'])->name('items');
 });
 
 // 管理者以上
-Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
+Route::group(['middleware' => ['auth', 'can:admin-role']], function () {
     //ここにルートを記述
 });
 
@@ -42,3 +48,5 @@ Route::post('/store', [\App\Http\Controllers\ItemController::class, 'store']);
 Route::get('/edit/{id}', [App\Http\Controllers\ItemController::class, 'edit'])->name('items.edit');
 Route::post('/update/{id}', [App\Http\Controllers\ItemController::class, 'update'])->name('items.update');
 
+Route::get('/admin', [App\Http\Controllers\ItemController::class, 'showAdmin']);
+Route::post('/destroy/{id}',[App\Http\Controllers\ItemController::class, 'destroy']);
