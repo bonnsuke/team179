@@ -78,7 +78,11 @@
                 <label for="name">名前</label>
                 <input type="text" name="name" id="name" required>
                 <label for="type_id">種別</label>
-                <input type="text" name="type_id" id="type_id">
+                <select class="form-control" name="type_id" id="type">
+                    @foreach($types as $type)
+                        <option value="{{ $type->id }}">{{ $type->type_name }}</option> <!-- 種別のリストを表示 -->
+                    @endforeach
+                </select>
                 <label for="detail">詳細</label>
                 <input type="text" name="detail" id="detail">
                 <button type="submit">登録</button>

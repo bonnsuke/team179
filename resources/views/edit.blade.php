@@ -80,7 +80,13 @@
                 <label for="name">名前</label>
                     <input type="text" name="name" id="name" required value="{{ $item->name }}">
                 <label for="type_id">種別</label>
-                    <input type="text" name="type_id" id="type_id" value="{{ $item->type_id }}">
+                    <select class="form-control" name="type_id" id="type">
+                @foreach($types as $type)
+                    <option value="{{ $type->id }}" {{ $item->type_id == $type->id ? 'selected' : '' }}>
+                        {{ $type->type_name }}
+                    </option>
+                @endforeach
+            </select>
                 <label for="detail">詳細</label>
                     <input type="text" name="detail" id="detail" value="{{ $item->detail }}">
                 <button type="submit">更新</button>

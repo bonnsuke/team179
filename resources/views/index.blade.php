@@ -93,7 +93,7 @@
                 <tr>
                     <td>{{ $item->user_id }}</td>
                     <td>{{ $item->name }}</td>
-                    <td>{{ $item->type_id }}</td>
+                    <td>{{ $item->type->type_name }}</td>
                     <td>{{ $item->detail }}</td>
                     <td><a href="/edit/{{ $item->id }}" class="edit-button">編集</a></td>
                 </tr>

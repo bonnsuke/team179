@@ -30,7 +30,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('create');
+        $types = Type::all();
+        return view('create', compact('types'));
     }
 
     public function store(Request $request)
@@ -54,8 +55,9 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
+        $types = Type::all();
         $item = Item::find($id);
-        return view('edit', compact('item'));
+        return view('edit', compact('item', 'types'));
     }
 
     public function update(Request $request, $id)
