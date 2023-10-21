@@ -1,34 +1,20 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app');
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>商品一覧画面</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-</head>
-<body>
-    <h1 class="text-center">商品管理システム</h1>
-    <h2>商品一覧</h2>
-    <div>
-      <form action="/search" method="get">
-        <input type="text" name="keyword">
-        <input type="submit" value="検索">
-     </form>
-    </div>
-    <div class="text-end">
-      @can('admin-role')
-      <a href="/create">商品登録</a>
-      @endcan
+@section('content')
+    <!-- フラッシュメッセージ -->
+    @if (session('flash_message'))
+        <div class="flash_message bg-success text-white mb-3 w-25 mx-auto p-3">
+            {{ session('flash_message') }}
+        </div>
+    @endif
+    <form action="/search" method="get" class="d-inline-block">
+      @csrf
+      <input type="text" name="keyword">
+      <input type="submit" value="検索">
+    </form>
+    @can('admin-role')
+      <a href="/create" class="btn btn-success d-inline-block mx-3">商品登録</a>
+    @endcan
     </div>
     <table class="table table-striped table-responsive">
       <thead>
@@ -41,7 +27,7 @@
           <th style = "width: 10%">削除</th>
           @endcan
         </tr>
-       </thead>
+      </thead>
     <tbody>
     @foreach ($items as $item)
       <tr>
@@ -61,5 +47,4 @@
       @endforeach
     </tbody>
   </table>
-</body>
-</html>
+@endsection
