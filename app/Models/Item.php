@@ -10,7 +10,6 @@ class Item extends Model
     use HasFactory;
     protected $table = 'items';
     protected $fillable = ['user_id', 'name', 'type_id', 'detail'];
-
     public function type()
     {
         return $this->belongsTo(Type::class);
