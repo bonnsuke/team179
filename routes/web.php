@@ -24,3 +24,7 @@ Route::group(['middleware' => 'auth', 'can:admin-role'], function () {
     
     Route::post('/destroy/{id}',[App\Http\Controllers\ItemController::class, 'destroy']);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
