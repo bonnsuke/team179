@@ -24,13 +24,14 @@ class ItemController extends Controller
             ->orwhere('detail', 'LIKE', "%{$keyword}%")
             ->join('types', function($join){
             $join->on('items.type_id', 'types.id');})
-            ->get();
+            ->select('items.*','types.type_name')->get();
         // $keywordが入力されていない場合は、商品テーブルと種別テーブルを結合し、トップ画面に渡します。
         }else{
             $items = Item::join('types', function($join){
             $join->on('items.type_id', 'types.id');
-            })->get();
+            })->select('items.*','types.type_name')->get();
         }
+        // dd($items);
         // itemsの配列でトップ画面に渡しています。
         return view('items.index',compact('items'));
     }
