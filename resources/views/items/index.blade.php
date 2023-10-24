@@ -27,7 +27,7 @@
           <th style = "width: 25%">種別</th>
           <th style = "width: 30%">詳細</th>
           @can('admin-role')
-          <th style = "width: 10%">削除</th>
+          <th style = "width: 10%">編集</th>
           @endcan
         </tr>
       </thead>
@@ -40,6 +40,7 @@
         <td>{{ $item->detail }}</td>
         @can('admin-role')
         <td>
+          <a href="{{ route('items.edit', $item->id) }}" class="btn btn-primary">編集</a>
           <form action="/destroy/{{$item->id}}" method="post">
             @csrf
             <button class=" btn btn-danger" type="submit">削除</button>
