@@ -17,25 +17,31 @@ class ItemController extends Controller
     {
         // 商品一覧画面表示をする際に検索キーワードがある場合、$keywordの変数に値が入ります。
         $keyword = $request->input('keyword');
-        // もしも$keywordの変数がNull（false）でなければ$keywordの値を基に商品名と種別名、詳細のいずれかに$keywordの文字列を含んでいるレコードを抽出します。
-        if(!empty($keyword)) {
-            $items =Item::where('name', 'LIKE', "%{$keyword}%")
-            ->orwhere('type_name', 'LIKE', "%{$keyword}%") 
-            ->orwhere('detail', 'LIKE', "%{$keyword}%")
-            ->join('types', function($join){
-            $join->on('items.type_id', 'types.id');})
-            ->select('items.*','types.type_name')->get();
-        // $keywordが入力されていない場合は、商品テーブルと種別テーブルを結合し、トップ画面に渡します。
-        }else{
-            $items = Item::join('types', function($join){
-            $join->on('items.type_id', 'types.id');
-            })->select('items.*','types.type_name')->get();
+        $count = 0; // 初期化
+    
+        if (!empty($keyword)) {
+            // もしも$keywordの変数がNull（false）でなければ$keywordの値を基に商品名と種別名、詳細のいずれかに$keywordの文字列を含んでいるレコードを抽出します。
+            $items = Item::where('name', 'LIKE', "%{$keyword}%")
+                ->orWhere('type_name', 'LIKE', "%{$keyword}%")
+                ->orWhere('detail', 'LIKE', "%{$keyword}%")
+                ->join('types', function ($join) {
+                    $join->on('items.type_id', 'types.id');
+                })
+                ->select('items.*', 'types.type_name')
+                ->get();
+    
+            $count = $items->count(); // 検索結果の件数を取得
+        } else {
+            // $keywordが入力されていない場合は、商品テーブルと種別テーブルを結合し、トップ画面に渡します。
+            $items = Item::join('types', function ($join) {
+                $join->on('items.type_id', 'types.id');
+            })->select('items.*', 'types.type_name')->get();
         }
-        // dd($items);
-        // itemsの配列でトップ画面に渡しています。
-        return view('items.index',compact('items'));
+    
+        // itemsの配列と検索結果の件数をトップ画面に渡しています。
+        return view('items.index', compact('items', 'count'));
     }
-
+    
     /**
      * 商品登録
      */

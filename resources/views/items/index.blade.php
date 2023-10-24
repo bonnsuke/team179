@@ -11,7 +11,10 @@
       @csrf
       <input type="text" name="keyword">
       <input type="submit" value="検索">
-    </form>
+  </form>
+  @if(isset($count) && $count > 0)
+      <p>検索結果: {{ $count }} 件</p>
+  @endif
     @can('admin-role')
       <a href="/create" class="btn btn-success d-inline-block mx-3">商品登録</a>
     @endcan
