@@ -5,6 +5,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// HomeController コントローラーの index メソッドを実行
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+});
+
+// logoutする
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+// ホーム画面へ
+Route::get('main_home', [App\Http\Controllers\HomeController::class,'create'])->name('');
+
 // 認証用のURL一式
 Auth::routes();
 

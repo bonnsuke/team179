@@ -1,0 +1,10 @@
+    /* サイドバーのスタイル */
+    .sidebar {
+        height: 100%;
+        width:  100%; /* サイドバーの幅を調整 */
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #144373; /* サイドバーの背景色 */
+        padding-top: 20px; /* サイドバー内の上部余白 */
+    }

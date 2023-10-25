@@ -18,6 +18,14 @@
     @can('admin-role')
       <a href="/create" class="btn btn-success d-inline-block mx-3">商品登録</a>
     @endcan
+    <div>
+    <a href="/main_home">ホーム画面へ</a>
+    </div>
+    {{-- ログアウト --}}
+    <form action="{{ route('logout') }}" method="POST">
+      @csrf
+      <button type="submit">ログアウト</button>
+  </form>
     </div>
     <table class="table table-striped table-responsive">
       <thead>
