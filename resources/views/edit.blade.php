@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <title>アイテム編集画面</title>
     <style>
          /* サイドバーのスタイル */
@@ -80,7 +81,13 @@
                 <label for="name">名前</label>
                     <input type="text" name="name" id="name" required value="{{ $item->name }}">
                 <label for="type_id">種別</label>
-                    <input type="text" name="type_id" id="type_id" value="{{ $item->type_id }}">
+                <select name="type_id" id="type_id" class="form-control">
+                    @foreach($types as $type)
+                        <option value="{{ $type->id }}" {{ $item->type_id == $type->id ? 'selected' : '' }}>
+                            {{ $type->type_name }}
+                        </option>
+                    @endforeach
+                </select>                
                 <label for="detail">詳細</label>
                     <input type="text" name="detail" id="detail" value="{{ $item->detail }}">
                 <button type="submit">更新</button>
