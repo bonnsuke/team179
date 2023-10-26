@@ -20,24 +20,26 @@
     <div class="container-fluid">
         <div class="row">
             <!-- サイドバー -->
-            <div class="col-2 bg-dark text-white sidebar" style="height: 100vh;">
+            <div class="col-2 bg-light text-dark sidebar border-end border-info border-5" style="height: 100vh;">
                 <ul class="list-unstyled">
                     <h1 class="text-center">MENU</h1>
                     <li><a href="items">商品一覧</a></li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit">ログアウト</button>
+                            
+                            <button type="submit" class="btn btn-outline-primary">ログアウト</button>
                         </form>
                     </li>        
                 </ul>
             </div>
             <!-- メインコンテンツ -->
             <div class="col-10">
-                <header class="bg-primary text-white p-3">
+                <header class="bg-primary text-white p-3 opacity-75 p-2 m-1 bg-primary text-light fw-bold rounded">
                     <h1 class="text-center">商品管理システム</h1>
                 </header>
-                <main class="p-3">
+
+                <main class="p-3 opacity-50 p-2 m-1 bg-primary text-light fw-bold rounded">
                     <p class="h1 text-center">HOME画面へようこそ</p>
                 </main>
             </div>
