@@ -23,7 +23,7 @@
             <div class="col-2 bg-light text-dark sidebar border-end border-info border-5" style="height: 100vh;">
                 <ul class="list-unstyled">
                     <h1 class="text-center">MENU</h1>
-                    <li><a href="items">商品一覧</a></li>
+                    <li><a href="items"><button type="submit" class="btn btn-outline-primary">商品一覧</button></a></li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
