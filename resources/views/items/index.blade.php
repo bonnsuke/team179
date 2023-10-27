@@ -1,6 +1,27 @@
 @extends('layouts.style')
 
 @section('content')
+<div class="container-fluid">
+        <div class="row">
+            <!-- サイドバー -->
+            <div class="col-2 bg-light text-dark sidebar border-end border-info border-5" >
+                <ul class="list-unstyled">
+                    <h1 class="text-center">MENU</h1>
+                    <li> <a href="/main_home"><button type="submit" class="btn btn-outline-primary">ホーム画面</button></a></li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            
+                            <button type="submit" class="btn btn-outline-primary">ログアウト</button>
+                        </form>
+                    </li>        
+                </ul>
+            </div>
+
+<div class="col-10">
+                <header class="bg-primary text-white p-3 opacity-75 p-2 m-1 bg-primary text-light fw-bold rounded">
+                    <h1 class="text-center">商品一覧画面</h1>
+                </header>
     <!-- フラッシュメッセージ -->
     @if (session('flash_message'))
         <div class="flash_message bg-success text-white mb-3 w-25 mx-auto p-3">
@@ -15,7 +36,7 @@
     </form>
     
     @can('admin-role')
-        <a href="/create" class="btn btn-success d-inline-block mx-3">商品登録</a>
+            <a href="/create" class="btn btn-success d-inline-block mx-3 ">商品登録</a>
     @endcan
     
     @if(isset($count) && $count > 0)
@@ -26,14 +47,8 @@
 
 
     <div>
-        <a href="/main_home">ホーム画面へ</a>
     </div>
 
-    {{-- ログアウト --}}
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">ログアウト</button>
-    </form>
 
     <table class="table table-striped table-responsive">
         <thead>
