@@ -13,14 +13,17 @@
         <input type="text" name="keyword">
         <input type="submit" value="検索">
     </form>
-
-    @if(isset($count) && $count > 0)
-        <p>検索結果: {{ $count }} 件</p>
-    @endif
-
+    
     @can('admin-role')
         <a href="/create" class="btn btn-success d-inline-block mx-3">商品登録</a>
     @endcan
+    
+    @if(isset($count) && $count > 0)
+        <p>検索結果: {{ $count }} 件</p>
+    @else
+        <p>商品件数: {{ count($items) }} 件</p>
+    @endif
+
 
     <div>
         <a href="/main_home">ホーム画面へ</a>
@@ -46,14 +49,15 @@
         </thead>
         <tbody>
           @foreach ($items as $item)
+          {{-- データ属性 data-item-id に $item->id の値を格納 --}}
           <tr class="item-row" data-item-id="{{ $item->id }}">
               <td>{{ $item->id }}</td>
               <td>{{ $item->name }}</td>
               <td>{{ $item->type_name }}</td>
               <td class="item-detail-cell">
                   <div class="partial-detail">
-                      {{ \Str::limit($item->detail, 100) }} <!-- 100文字まで表示 -->
-                      @if (strlen($item->detail) > 100)
+                      {{ \Str::limit($item->detail, 50) }} <!-- 50文字まで表示 -->
+                      @if (strlen($item->detail) > 50)
                           <span class="text-muted">...</span>
                       @endif
                   </div>
