@@ -7,7 +7,7 @@ use App\Models\Item;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ItemController extends Controller
 {
@@ -16,12 +16,11 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        // 商品一覧画面表示をする際に検索キーワードがある場合、$keywordの変数に値が入ります。
         $keyword = $request->input('keyword');
-        $count = 0; // 初期化
+        $count = 0;
+        $items = null;
     
         if (!empty($keyword)) {
-            // もしも$keywordの変数がNull（false）でなければ$keywordの値を基に商品名と種別名、詳細のいずれかに$keywordの文字列を含んでいるレコードを抽出します。
             $items = Item::where('name', 'LIKE', "%{$keyword}%")
                 ->orWhere('type_name', 'LIKE', "%{$keyword}%")
                 ->orWhere('detail', 'LIKE', "%{$keyword}%")
@@ -29,22 +28,30 @@ class ItemController extends Controller
                     $join->on('items.type_id', 'types.id');
                 })
                 ->select('items.*', 'types.type_name')
-                ->paginate(5);    //paginateに変更
-                //->get();
-    
-            $count = $items->count(); // 検索結果の件数を取得
+                ->get(); // ページネーションを適用する前に全ての検索結果を取得
         } else {
-            // $keywordが入力されていない場合は、商品テーブルと種別テーブルを結合し、トップ画面に渡します。
             $items = Item::join('types', function ($join) {
                 $join->on('items.type_id', 'types.id');
             })->select('items.*', 'types.type_name')
-            ->paginate(5);    //paginateに変更
-            //->get();
+            ->get(); // ページネーションを適用する前に全ての商品を取得
         }
     
-        // itemsの配列と検索結果の件数をトップ画面に渡しています。
+        $count = $items->count();
+    
+        // ページネーションを適用
+        $items = $this->paginateCollection($items, 5); // カスタムのpaginateCollectionメソッドを使用
+    
         return view('items.index', compact('items', 'count'));
-
+    }
+    
+    // カスタムのpaginateCollectionメソッド
+    private function paginateCollection($items, $perPage)
+    {
+        $currentPage = request()->input('page', 1); // 現在のページをリクエストから取得
+        $currentPageItems = $items->slice(($currentPage - 1) * $perPage, $perPage); // 現在のページに表示するアイテムをスライス
+        $items = new LengthAwarePaginator($currentPageItems, $items->count(), $perPage, $currentPage);
+    
+        return $items;
     }
     
     /**
