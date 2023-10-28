@@ -1,6 +1,27 @@
-@extends('layouts.app')
+@extends('layouts.style')
 
 @section('content')
+<div class="container-fluid">
+        <div class="row">
+            <!-- サイドバー -->
+            <div class="col-2 bg-light text-dark sidebar border-end border-info border-5" >
+                <ul class="list-unstyled">
+                    <h1 class="text-center">MENU</h1>
+                    <li> <a href="/main_home"><button type="submit" class="btn btn-outline-primary">ホーム画面</button></a></li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            
+                            <button type="submit" class="btn btn-outline-primary">ログアウト</button>
+                        </form>
+                    </li>        
+                </ul>
+            </div>
+
+<div class="col-10">
+                <header class="bg-primary text-white p-3 opacity-75 p-2 m-1 bg-primary text-light fw-bold rounded">
+                    <h1 class="text-center">商品一覧画面</h1>
+                </header>
     <!-- フラッシュメッセージ -->
     @if (session('flash_message'))
         <div class="flash_message bg-success text-white mb-3 w-25 mx-auto p-3">
@@ -8,48 +29,25 @@
         </div>
     @endif
 
-
-
-
-
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-
-    <div class="float-end">
-        <form action="/search" method="get" class="d-inline-block">
-            @csrf
-            
-            <input type="text" name="keyword">
-            <input type="submit" value="検索">
-
-        </form>
-        
+    <form action="/search" method="get" class="d-inline-block">
+        @csrf
+        <input type="text" name="keyword">
+        <input type="submit" value="検索">
+    </form>
+    
+    @can('admin-role')
+            <a href="/create" class="btn btn-success d-inline-block mx-3 ">商品登録</a>
+    @endcan
+    
     @if(isset($count) && $count > 0)
         <p>検索結果: {{ $count }} 件</p>
     @else
         <p>商品件数: {{ count($items) }} 件</p>
     @endif
+
+
+    <div>
     </div>
-
-
-    
-    <div class="btn-group-vertical">
-    @can('admin-role')
-        <a href="/create" class="btn btn-success d-inline-block">商品登録</a>
-    @endcan
-    
-        <a href="/main_home"><button type="submit" class="btn btn-primary">ホーム画面へ</button></a>
-        
-    
-    {{-- ログアウト --}}
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-secondary">ログアウト</button>
-        </form>
-    </div>
-
 
 
     <table class="table table-striped table-responsive">

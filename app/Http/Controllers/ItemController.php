@@ -63,6 +63,7 @@ class ItemController extends Controller
         // テーブル定義書に合わせて100文字までとする
         $this->validate($request, [
             'name' => 'required|max:100',
+            'type_id' => 'required',      
         ]);
 
         // Auth::id()で現在ログインしているユーザーのIDを取得しています。
@@ -102,7 +103,7 @@ class ItemController extends Controller
             'type_id' => $request->type_id,
             'detail' => $request->detail,
         ]);
-        return redirect()->route('items');
+        return redirect()->route('items')->with('flash_message', '商品の編集が完了しました');;
     }
 
     public function destroy($id)
