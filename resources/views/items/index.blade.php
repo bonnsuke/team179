@@ -8,32 +8,49 @@
         </div>
     @endif
 
-    <form action="/search" method="get" class="d-inline-block">
-        @csrf
-        <input type="text" name="keyword">
-        <input type="submit" value="検索">
-    </form>
-    
-    @can('admin-role')
-        <a href="/create" class="btn btn-success d-inline-block mx-3">商品登録</a>
-    @endcan
-    
+
+
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+
+    <div class="float-end">
+        <form action="/search" method="get" class="d-inline-block">
+            @csrf
+            
+            <input type="text" name="keyword">
+            <input type="submit" value="検索">
+
+        </form>
+        
     @if(isset($count) && $count > 0)
         <p>検索結果: {{ $count }} 件</p>
     @else
         <p>商品件数: {{ count($items) }} 件</p>
     @endif
-
-
-    <div>
-        <a href="/main_home">ホーム画面へ</a>
     </div>
 
+
+    
+    <div class="btn-group-vertical">
+    @can('admin-role')
+        <a href="/create" class="btn btn-success d-inline-block">商品登録</a>
+    @endcan
+    
+        <a href="/main_home"><button type="submit" class="btn btn-primary">ホーム画面へ</button></a>
+        
+    
     {{-- ログアウト --}}
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">ログアウト</button>
-    </form>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-secondary">ログアウト</button>
+        </form>
+    </div>
+
+
 
     <table class="table table-striped table-responsive">
         <thead>
@@ -76,11 +93,9 @@
               @endcan
           </tr>
           @endforeach
-          
-          
-          
         </tbody>
     </table>
+
 </div>
 <script>
   // 各アイテム行にクリックイベントリスナーを追加します
@@ -102,6 +117,9 @@
   });
 </script>
 
-
-
+<!-- pagination表示 -->
+{{$items->links('pagination::bootstrap-5')}}
+            </div>
+        </div>
+    </div>
 @endsection
