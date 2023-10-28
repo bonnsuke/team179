@@ -91,11 +91,9 @@
               @endcan
           </tr>
           @endforeach
-          
-          
-          
         </tbody>
     </table>
+
 </div>
 <script>
   // 各アイテム行にクリックイベントリスナーを追加します
@@ -117,6 +115,9 @@
   });
 </script>
 
-
-
+<!-- pagination表示 -->
+{{$items->links('pagination::bootstrap-5')}}
+            </div>
+        </div>
+    </div>
 @endsection
