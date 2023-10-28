@@ -29,17 +29,15 @@ class ItemController extends Controller
                     $join->on('items.type_id', 'types.id');
                 })
                 ->select('items.*', 'types.type_name')
-                ->paginate(5);    //paginateに変更
-                //->get();
-    
-            $count = $items->count(); // 検索結果の件数を取得
+                ->get();
+
         } else {
             // $keywordが入力されていない場合は、商品テーブルと種別テーブルを結合し、トップ画面に渡します。
             $items = Item::join('types', function ($join) {
                 $join->on('items.type_id', 'types.id');
             })->select('items.*', 'types.type_name')
-            ->paginate(5);    //paginateに変更
-            //->get();
+            ->get();
+
         }
     
         // itemsの配列と検索結果の件数をトップ画面に渡しています。
