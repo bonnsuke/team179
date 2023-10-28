@@ -12,7 +12,7 @@
         <div class="mb-3">
             <label for="type_id" class="form-label">種別</label>
             <select name="type_id" id="type_id" class="form-control">
-                <option value=""></option>
+                <option value="">選択してください</option>
                 @foreach($types as $type)
                     <option value="{{ $type->id }}">{{ $type->type_name }}</option>
                 @endforeach
